@@ -29,6 +29,7 @@ BOARDDIRS=""
 # $1: name of board directory
 #
 board_setup ( ) {
+    BOARD_NAME=$1
     BOARDDIR=${TOPDIR}/board/$1
     if [ ! -e ${BOARDDIR}/setup.sh ]; then
         echo "Can't setup board $1."
@@ -46,9 +47,9 @@ board_setup ( ) {
 board_generate_image_name ( ) {
     if [ -z "${IMG}" ]; then
         if [ -z "${SOURCE_VERSION}" ]; then
-           IMG=${WORKDIR}/FreeBSD-${TARGET_ARCH}-${FREEBSD_MAJOR_VERSION}-${KERNCONF}.img
+           IMG=${WORKDIR}/HardenedBSD-${BOARD_NAME}-${TARGET_ARCH}-${FREEBSD_MAJOR_VERSION}-${KERNCONF}.img
        else
-           IMG=${WORKDIR}/FreeBSD-${TARGET_ARCH}-${FREEBSD_VERSION}-${KERNCONF}-${SOURCE_VERSION}.img
+           IMG=${WORKDIR}/HardenedBSD-${BOARD_NAME}-${TARGET_ARCH}-${FREEBSD_VERSION}-${KERNCONF}-${SOURCE_VERSION}.img
        fi
     fi
     echo "Image name is:"
