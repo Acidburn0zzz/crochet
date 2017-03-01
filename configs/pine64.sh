@@ -173,7 +173,7 @@ KERNCONF=HARDENEDBSD
 # it will tell you how to get appropriate sources into this directory.
 # (I find FREEBSD_SRC=${TOPDIR}/src to be useful.)
 #
-#FREEBSD_SRC=/usr/src
+FREEBSD_SRC=/scratch/clang400
 
 # You will probably never override this, but you may need to
 # understand it: WORKDIR holds all of the created and temporary files
@@ -234,8 +234,8 @@ FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 
 # Build jobs.  The number of make jobs to run in parallel.
 # Defaults to: $(sysctl -n hw.ncpu)
-#WORLDJOBS="-j4"
-#KERNJOBS="-j4"
+WORLDJOBS="-j6"
+KERNJOBS="-j6"
 
 # You can specify a custom src.conf or make.conf; the defaults are:
 #
@@ -308,7 +308,7 @@ FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 # # freebsd partition.
 customize_freebsd_partition ( ) {
 	ln -s 'tcache:false' etc/malloc.conf
-	sed 's,enabled: yes,enabled: no,' etc/pkg/HardenedBSD.conf \
+	sed 13,14d etc/pkg/HardenedBSD.conf \
 		> etc/pkg/HardenedBSD.conf.new
 	mv etc/pkg/HardenedBSD.conf.new etc/pkg/HardenedBSD.conf
 }
@@ -348,5 +348,5 @@ customize_freebsd_partition ( ) {
 # Crochet is being used.
 #
 
-FREEBSD_FORCE_BUILDWORLD="yes"
-FREEBSD_FORCE_BUILDKERNEL="yes"
+#FREEBSD_FORCE_BUILDWORLD="yes"
+#FREEBSD_FORCE_BUILDKERNEL="yes"
