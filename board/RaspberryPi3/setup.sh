@@ -1,4 +1,4 @@
-KERNCONF=GENERIC-UP
+KERNCONF=GENERIC
 RPI3_UBOOT_PORT="u-boot-rpi3"
 RPI3_UBOOT_BIN="u-boot.bin"
 RPI3_UBOOT_PATH="/usr/local/share/u-boot/${RPI3_UBOOT_PORT}"
@@ -41,6 +41,7 @@ raspberry_pi_populate_boot_partition ( ) {
     cp ${UBOOT_PATH}/start_cd.elf .
     cp ${UBOOT_PATH}/start_x.elf .
     cp ${UBOOT_PATH}/u-boot.bin .
+    cp ${UBOOT_PATH}/armstub8.bin .
 
     # Populate config.txt
     echo "arm_control=0x200" > config.txt
