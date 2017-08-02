@@ -7,8 +7,6 @@ TARGET_ARCH=aarch64
 TARGET=aarch64
 DTB_REPO="https://github.com/raspberrypi/firmware/blob/master/boot/"
 
-NEW_UBOOT="https://hardenedbsd.org/~shawn/rpi3/smp"
-
 # Not used - just in case someone wants to use a manual ubldr.  Obtained
 # from 'printenv' in boot0: kernel_addr_r=0x42000000
 #UBLDR_LOADADDR=0x42000000
@@ -43,10 +41,6 @@ raspberry_pi_populate_boot_partition ( ) {
     cp ${UBOOT_PATH}/start_cd.elf .
     cp ${UBOOT_PATH}/start_x.elf .
     cp ${UBOOT_PATH}/u-boot.bin .
-
-    # Copy new u-boot for SMP
-    fetch ${NEW_UBOOT}/u-boot.bin
-    fetch ${NEW_UBOOT}/armstub8.bin
 
     # Populate config.txt
     echo "arm_control=0x200" > config.txt
