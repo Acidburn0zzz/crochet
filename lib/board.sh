@@ -59,17 +59,10 @@ board_generate_image_name ( ) {
     fi
     if [ -z "${IMG}" ]; then
         if [ -z "${SOURCE_VERSION}" ]; then
-<<<<<<< HEAD
-           IMG=${WORKDIR}/HardenedBSD-${BOARD_NAME}-${TARGET_ARCH}-${FREEBSD_MAJOR_VERSION}-${KERNCONF}.img
-       else
-           IMG=${WORKDIR}/HardenedBSD-${BOARD_NAME}-${TARGET_ARCH}-${FREEBSD_VERSION}-${KERNCONF}-${SOURCE_VERSION}.img
-       fi
-=======
-           IMG=${_IMGDIR}/FreeBSD-${TARGET_ARCH}-${FREEBSD_MAJOR_VERSION}-${KERNCONF}-${BOARDNAME}.img
+           IMG=${_IMGDIR}/HardenedBSD-${TARGET_ARCH}-${FREEBSD_MAJOR_VERSION}-${KERNCONF}-${BOARDNAME}.img
 	else
-           IMG=${_IMGDIR}/FreeBSD-${TARGET_ARCH}-${FREEBSD_VERSION}-${KERNCONF}-${SOURCE_VERSION}-${BOARDNAME}.img
+           IMG=${_IMGDIR}/HardenedBSD-${TARGET_ARCH}-${FREEBSD_VERSION}-${KERNCONF}-${SOURCE_VERSION}-${BOARDNAME}.img
 	fi
->>>>>>> upstream/master
     fi
     echo "Image name is:"
     echo "    ${IMG}"
