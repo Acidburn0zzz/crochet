@@ -172,7 +172,7 @@ KERNCONF=HARDENEDBSD
 # it will tell you how to get appropriate sources into this directory.
 # (I find FREEBSD_SRC=${TOPDIR}/src to be useful.)
 #
-FREEBSD_SRC=/scratch/clang400
+FREEBSD_SRC=/usr/src
 
 # You will probably never override this, but you may need to
 # understand it: WORKDIR holds all of the created and temporary files
@@ -233,8 +233,8 @@ FREEBSD_SRC=/scratch/clang400
 
 # Build jobs.  The number of make jobs to run in parallel.
 # Defaults to: $(sysctl -n hw.ncpu)
-WORLDJOBS="-j6"
-KERNJOBS="-j6"
+WORLDJOBS="4"
+KERNJOBS="4"
 
 # You can specify a custom src.conf or make.conf; the defaults are:
 #
@@ -244,7 +244,7 @@ __MAKE_CONF="/scratch/crochet/configs/rpi3.make.conf"
 # For example, I find each of the following quite useful at times:
 #
 #FREEBSD_EXTRA_ARGS="-DNO_CLEAN"
-FREEBSD_KERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
+#FREEBSD_KERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 
 
 
@@ -305,12 +305,8 @@ FREEBSD_KERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 # # Runs after FreeBSD partition is built and populated.
 # # The current working directory is at the root of the mounted
 # # freebsd partition.
-customize_freebsd_partition ( ) {
-	ln -s 'tcache:false' etc/malloc.conf
-	sed 13,14d etc/pkg/HardenedBSD.conf \
-		> etc/pkg/HardenedBSD.conf.new
-	mv etc/pkg/HardenedBSD.conf.new etc/pkg/HardenedBSD.conf
-}
+#customize_freebsd_partition ( ) {
+#}
 
 # For example, here's one way to add an entry to the default /etc/fstab:
 #
@@ -347,5 +343,5 @@ customize_freebsd_partition ( ) {
 # Crochet is being used.
 #
 
-#FREEBSD_FORCE_BUILDWORLD="yes"
-#FREEBSD_FORCE_BUILDKERNEL="yes"
+FREEBSD_FORCE_BUILDWORLD="yes"
+FREEBSD_FORCE_BUILDKERNEL="yes"
