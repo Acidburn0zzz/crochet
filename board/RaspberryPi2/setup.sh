@@ -2,7 +2,7 @@ KERNCONF=GENERIC
 UBLDR_LOADADDR=0x2000000
 RPI_UBOOT="u-boot-rpi2"
 RPI_UBOOT_BIN="u-boot.bin"
-IMAGE_SIZE=$((1000 * 1000 * 1000)) # 1 GB default
+IMAGE_SIZE=$((3 * 1000 * 1000 * 1000)) # 1 GB too small - go with 3 GB default
 TARGET_ARCH=armv6
 
 UBOOT_PATH="/usr/local/share/u-boot/${RPI_UBOOT}"
@@ -26,16 +26,7 @@ strategy_add $PHASE_PARTITION_LWW raspberry_pi_partition_image
 
 raspberry_pi_populate_boot_partition ( ) {
     # Copy RaspberryPi 2 boot files to FAT partition
-    cp ${UBOOT_PATH}/LICENCE.broadcom .
     cp ${UBOOT_PATH}/README .
-    cp ${UBOOT_PATH}/bootcode.bin .
-    cp ${UBOOT_PATH}/config.txt .
-    cp ${UBOOT_PATH}/fixup.dat .
-    cp ${UBOOT_PATH}/fixup_cd.dat .
-    cp ${UBOOT_PATH}/fixup_x.dat .
-    cp ${UBOOT_PATH}/start.elf .
-    cp ${UBOOT_PATH}/start_cd.elf .
-    cp ${UBOOT_PATH}/start_x.elf .
     cp ${UBOOT_PATH}/u-boot.bin .
 
     # RPi firmware loads and modify the DTB before pass it to kernel.
