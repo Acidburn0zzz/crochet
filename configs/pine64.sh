@@ -166,14 +166,14 @@ option Ntpd
 
 # Each board picks a default KERNCONF but you can override it.
 #
-KERNCONF=HARDENEDBSD
+KERNCONF=HARDENEDBSD-MMCCAM
 
 # FreeBSD source that will be used for kernel, world, and ubldr.
 # This directory doesn't need to exist yet.  When you run the script,
 # it will tell you how to get appropriate sources into this directory.
 # (I find FREEBSD_SRC=${TOPDIR}/src to be useful.)
 #
-FREEBSD_SRC=/scratch/clang400
+FREEBSD_SRC=/usr/src
 
 # You will probably never override this, but you may need to
 # understand it: WORKDIR holds all of the created and temporary files
@@ -215,9 +215,9 @@ FREEBSD_SRC=/scratch/clang400
 #
 # You can add your own options to any single build phase:
 #
-FREEBSD_BUILDWORLD_EXTRA_ARGS="-DNO_CLEAN"
+#FREEBSD_BUILDWORLD_EXTRA_ARGS="-DNO_CLEAN"
 #FREEBSD_INSTALLWORLD_EXTRA_ARGS=""
-FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
+#FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 #FREEBSD_INSTALLKERNEL_EXTRA_ARGS=""
 
 # You can specify options for both buildworld and installworld:
@@ -234,8 +234,8 @@ FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 
 # Build jobs.  The number of make jobs to run in parallel.
 # Defaults to: $(sysctl -n hw.ncpu)
-WORLDJOBS="-j6"
-KERNJOBS="-j6"
+WORLDJOBS="4"
+KERNJOBS="4"
 
 # You can specify a custom src.conf or make.conf; the defaults are:
 #
@@ -245,7 +245,7 @@ KERNJOBS="-j6"
 # For example, I find each of the following quite useful at times:
 #
 #FREEBSD_EXTRA_ARGS="-DNO_CLEAN"
-#FREEBSD_KERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
+FREEBSD_KERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 
 
 
@@ -306,12 +306,12 @@ KERNJOBS="-j6"
 # # Runs after FreeBSD partition is built and populated.
 # # The current working directory is at the root of the mounted
 # # freebsd partition.
-customize_freebsd_partition ( ) {
-	ln -s 'tcache:false' etc/malloc.conf
-	sed 13,14d etc/pkg/HardenedBSD.conf \
-		> etc/pkg/HardenedBSD.conf.new
-	mv etc/pkg/HardenedBSD.conf.new etc/pkg/HardenedBSD.conf
-}
+#customize_freebsd_partition ( ) {
+#	ln -s 'tcache:false' etc/malloc.conf
+#	sed 13,14d etc/pkg/HardenedBSD.conf \
+#		> etc/pkg/HardenedBSD.conf.new
+#	mv etc/pkg/HardenedBSD.conf.new etc/pkg/HardenedBSD.conf
+#}
 
 # For example, here's one way to add an entry to the default /etc/fstab:
 #

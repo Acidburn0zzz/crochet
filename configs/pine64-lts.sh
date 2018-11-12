@@ -34,10 +34,11 @@
 #board_setup Soekris
 #board_setup RaspberryPi
 #board_setup RaspberryPi2
-board_setup RaspberryPi3
+#board_setup RaspberryPi3
 #board_setup VersatilePB
 #board_setup ZedBoard
 #board_setup Wandboard
+board_setup Pine64-LTS
 #
 
 # Size of the disk image that will be built.  This is usually the same
@@ -165,6 +166,7 @@ option Ntpd
 
 # Each board picks a default KERNCONF but you can override it.
 #
+#KERNCONF=HARDENEDBSD-MMCCAM
 KERNCONF=HARDENEDBSD
 
 # FreeBSD source that will be used for kernel, world, and ubldr.
@@ -214,9 +216,9 @@ FREEBSD_SRC=/usr/src
 #
 # You can add your own options to any single build phase:
 #
-#FREEBSD_BUILDWORLD_EXTRA_ARGS="-DNO_CLEAN"
+FREEBSD_BUILDWORLD_EXTRA_ARGS="-DNO_CLEAN"
 #FREEBSD_INSTALLWORLD_EXTRA_ARGS=""
-#FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
+FREEBSD_BUILDKERNEL_EXTRA_ARGS="-DNO_KERNELCLEAN"
 #FREEBSD_INSTALLKERNEL_EXTRA_ARGS=""
 
 # You can specify options for both buildworld and installworld:
@@ -233,13 +235,13 @@ FREEBSD_SRC=/usr/src
 
 # Build jobs.  The number of make jobs to run in parallel.
 # Defaults to: $(sysctl -n hw.ncpu)
-WORLDJOBS="3"
-KERNJOBS="3"
+WORLDJOBS="4"
+KERNJOBS="4"
 
 # You can specify a custom src.conf or make.conf; the defaults are:
 #
-SRCCONF="/scratch/crochet/configs/rpi3.src.conf"
-__MAKE_CONF="/scratch/crochet/configs/rpi3.make.conf"
+#SRCCONF="/etc/src.conf"
+#__MAKE_CONF="/dev/null"
 
 # For example, I find each of the following quite useful at times:
 #
@@ -306,6 +308,10 @@ __MAKE_CONF="/scratch/crochet/configs/rpi3.make.conf"
 # # The current working directory is at the root of the mounted
 # # freebsd partition.
 #customize_freebsd_partition ( ) {
+#	ln -s 'tcache:false' etc/malloc.conf
+#	sed 13,14d etc/pkg/HardenedBSD.conf \
+#		> etc/pkg/HardenedBSD.conf.new
+#	mv etc/pkg/HardenedBSD.conf.new etc/pkg/HardenedBSD.conf
 #}
 
 # For example, here's one way to add an entry to the default /etc/fstab:
